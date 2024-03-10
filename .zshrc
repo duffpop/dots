@@ -5,10 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-  source $(brew --prefix)/etc/brew-wrap
-fi
-
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 plugins=(
@@ -37,27 +33,27 @@ export EDITOR=nvim
 CONFIG_HOME="$HOME/.config/"
 export XDG_CONFIG_HOME="$CONFIG_HOME"
 export HOMEBREW_XDG_CONFIG_HOME="$CONFIG_HOME"
+
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
-
-alias reload="exec $SHELL -l"
-alias nz="nvim $HOME/.zshrc"
-alias n=nvim
-alias tl=tldr
+alias conf="cd $CONFIG_HOME"
+alias arpa="arp -a | awk '{print \$4}' | xargs -I {} sh -c 'echo {}; sleep 1; curl -s https://api.macvendors.com/{}'"
+alias bunx="bun x"
 alias cat=bat
 alias ccat="bat --style=plain"
-alias ls=lsd
-alias l="lsd -lAh"
-alias ll="lsd -lh"
-alias md="mkdir -p"
+alias cko="cd $HOME/repos/cko/"
 alias dl="cd $HOME/Downloads"
 alias dt="cd $HOME/Desktop"
-alias arpa="arp -a | awk '{print \$4}' | xargs -I {} sh -c 'echo {}; sleep 1; curl -s https://api.macvendors.com/{}'"
+alias l="lsd -lAh"
+alias ll="lsd -lh"
+alias ls=lsd
+alias md="mkdir -p"
+alias n=nvim
+alias nz="nvim $HOME/.zshrc"
+alias reload="exec $SHELL -l"
 alias repos="cd $HOME/repos/"
-alias bunx="bun x"
 alias repos="cd $HOME/repos/"
-alias cko="cd $HOME/repos/cko/"
-alias ,conf="cd $CONFIG_HOME"
+alias tl=tldr
 
 # function docker() {
 #   if [ "$1" = "ls" ]; then
@@ -108,32 +104,4 @@ function csr() {
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# eval "$(mise activate zsh)"
-
 eval "$(mise activate zsh)"
-
-# pnpm
-export PNPM_HOME="/Users/duff/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh" }}\x9c'
-
